@@ -1,6 +1,9 @@
 import 'package:fluentui_icons/fluentui_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:ticket_booking_app/data/hotel_info_list.dart';
+import 'package:ticket_booking_app/data/ticket_info_list.dart';
+import 'package:ticket_booking_app/screens/hotel_view.dart';
 import 'package:ticket_booking_app/screens/ticket_view.dart';
 import 'package:ticket_booking_app/utils/app_styles.dart';
 
@@ -81,24 +84,60 @@ class HomeScreen extends StatelessWidget {
                     Text(
                       'Upcoming Flight',
                       style: MyStyles.headLineStyle2,
-                      ),
-                      InkWell(
-                        onTap: () =>{
-                          print('Tapped')
-                        },
-                        child: Text(
+                    ),
+                    InkWell(
+                      onTap: () => {print('Tapped')},
+                      child: Text(
                         'View All',
-                        style: MyStyles.textStyle.copyWith(color: MyStyles.primaryColor),
-                        ),
+                        style: MyStyles.textStyle
+                            .copyWith(color: MyStyles.primaryColor),
                       ),
-
+                    ),
                   ],
                 )
               ],
             ),
           ),
-          const TicketView()
-        
+          const Gap(16),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(left: 20),
+            child: Row(
+              children: ticketList
+                  .map((ticket) => TicketView(ticket: ticket))
+                  .toList(),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Hotels',
+                  style: MyStyles.headLineStyle2,
+                ),
+                InkWell(
+                  onTap: () => {print('Tapped')},
+                  child: Text(
+                    'View All',
+                    style: MyStyles.textStyle
+                        .copyWith(color: MyStyles.primaryColor),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Gap(15),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(left: 20),
+            child: Row(
+              children: hotelList
+                  .map((hotelInfo) => HotelView(hotel: hotelInfo))
+                  .toList(),
+            ),
+          ),
         ],
       ),
     );
